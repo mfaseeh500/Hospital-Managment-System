@@ -1,3 +1,7 @@
+
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -41,12 +45,17 @@ public class ArLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("USER NAME");
+        jLabel1.setText("ID");
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PASSWORD");
 
         jButton1.setText("LOG IN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("BACK");
 
@@ -104,6 +113,35 @@ public class ArLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+        connect c1=new connect();
+        String u=id.getText();
+        String p=password.getText();
+        String sql = "select * from admin_login where USERNAME='"+u+"' and PASSWORD='"+p+"'";
+        ResultSet rs = c1.s.executeQuery(sql);
+        if(rs.next()){
+            dispose();
+            AdminControls ac=new AdminControls();
+            ac.setVisible(true);
+            
+            
+        }else{
+            
+                JOptionPane.showMessageDialog(null, "!!INVALID LOGIN!!\nTHE USERNAME OR PASSWORD IS INCORRECT");
+          
+               
+                   
+               
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        
+      
+    }   
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
