@@ -10,10 +10,9 @@
  */
 public class Patient {
 
-    private String name, gender, email, p_num, password;
-    private int id, age;
+    private String name, gender, email, p_num, password,id, age;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -21,7 +20,7 @@ public class Patient {
         return name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
@@ -47,11 +46,11 @@ public class Patient {
         this.name = name;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 public void setEmail(String email){

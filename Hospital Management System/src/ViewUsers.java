@@ -1,3 +1,8 @@
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +14,48 @@
  * @author MUHAMMAD FASEEH
  */
 public class ViewUsers extends javax.swing.JFrame {
-
+public void showData() {
+      Patient p = new Patient();
+        
+        try {
+            connect c = new connect();
+            //String sql = "select employeehistory.ID,employeehistory.NAME,employeehistory.AGE,employeehistory.DEPARTMENTID,employeehistory.DEPARTMENTNAME,employeehistory.DESIGNATION,employeehistory.SALARY,employeehistory.EMAIL,employeehistory.PHONENUMBER,employeehistory.PASSWORD,employeehistory.DOB,employeehistory.DOL  from Employeehistory";
+            String sql = "select * from admin_patient_view";
+            ResultSet rs = c.s.executeQuery(sql);
+            while (rs.next()) {
+              
+               
+                p.setId(rs.getString("p_ID"));
+                p.setName(rs.getString("NAME"));
+                p.setAge(rs.getString("age"));
+                p.setGender(rs.getString("gender"));
+               
+             p.setEmail(rs.getString("email"));
+             p.setPhonenumber(rs.getString("phonenumber"));
+            p.setPassword(rs.getString("password"));
+             String patient[] = {p.getId(), p.getName() , p.getAge(), p.getGender(), p.getEmail(), p.getPhonenumber(),p.getPassword() };
+            DefaultTableModel tb1Model = (DefaultTableModel) jTable1.getModel();
+            tb1Model.addRow(patient);
+            
+               
+              
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println("THE ERROR IS" + ex);
+            
+        }
+     
+          
+         
+    
+    }
     /**
      * Creates new form ViewUsers
      */
     public ViewUsers() {
         initComponents();
+        showData();
     }
 
     /**
@@ -29,10 +70,10 @@ public class ViewUsers extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 150));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -41,12 +82,10 @@ public class ViewUsers extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "NAME", "AGE", "GENDER", "EMAIL", "PHONE NUMBER", "PASSWORD"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("DELETE / UPDATE DETAILS");
 
         jButton2.setText("BACK");
 
@@ -54,33 +93,27 @@ public class ViewUsers extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1305, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1317, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(589, 589, 589)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(95, 95, 95))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(112, 112, 112)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(23, 23, 23))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,7 +161,6 @@ public class ViewUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
